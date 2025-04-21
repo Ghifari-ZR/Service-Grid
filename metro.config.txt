@@ -1,0 +1,16 @@
+// metro.config.js
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const path = require('path');
+
+const projectRoot = __dirname;
+const defaultConfig = getDefaultConfig(projectRoot);
+
+module.exports = mergeConfig(defaultConfig, {
+  projectRoot,
+  watchFolders: [
+    path.resolve(projectRoot, 'node_modules'),
+  ],
+  resolver: {
+    sourceExts: [...defaultConfig.resolver.sourceExts, 'cjs'],
+  },
+});
