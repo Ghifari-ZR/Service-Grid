@@ -16,7 +16,7 @@ export default function ExploreScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const webViewRef = useRef<WebView>(null);
   const appState = useRef<AppStateStatus>(AppState.currentState);
-  const url = 'http://192.168.150.109:8069/odoo/timesheets';
+  const url = 'http://servicegrid.bfsi.local:8069/odoo/timesheets';
 
   const handleError = async (syntheticEvent: any) => {
     const { nativeEvent } = syntheticEvent;
