@@ -1,50 +1,107 @@
-# Welcome to your Expo app 👋
+# Servicegrid 📱🌐
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Servicegrid** is a mobile application built using [Expo](https://expo.dev) and [React Native](https://reactnative.dev).  
+It serves as a **mobile wrapper** for the internal **Service Grid web platform**, using a **WebView** to render the web-based system inside a native app.
 
-## Get started
+> This app is intended for use within the BFSI internal network to access Service Grid timesheets and related features from mobile devices.
 
-1. Install dependencies
+---
+
+## 🚀 Get Started (Expo Workflow)
+
+1. Install dependencies:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Start the app with Expo:
 
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+You can then open the app in a:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [Expo Go](https://expo.dev/go) _(limited functionality with WebView)_
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🛠️ Run with React Native CLI (Bare Workflow)
 
-When you're ready, run:
+If you're building the app with Xcode or Android Studio, follow these steps:
+
+1. Generate native code:
+
+   ```bash
+   npx expo prebuild
+   ```
+
+2. (macOS/iOS only) Install CocoaPods dependencies:
+
+   ```bash
+   npx pod-install
+   ```
+
+3. Run on Android:
+
+   ```bash
+   npx react-native run-android
+   ```
+
+4. Run on iOS (macOS only):
+
+   ```bash
+   npx react-native run-ios
+   ```
+
+> Make sure you’ve already opened the app at least once with `npx expo start` before using native commands.
+
+---
+
+## 🔧 Development Notes
+
+- The app uses **WebView** to load:  
+  `http://servicegrid.bfsi.local:8069/odoo/timesheets`
+- Custom error handling will alert the user if the Service Grid cannot be reached (e.g., not connected to BFSI network).
+- Supports:
+  - Pull-to-refresh gesture
+  - Automatic reload on app resume
+
+### Routing
+
+This project uses [file-based routing](https://docs.expo.dev/router/introduction) via the `expo-router` package. You can develop screens inside the `app/` directory.
+
+---
+
+## 🧹 Reset the Project
+
+To reset and start from a blank app structure:
 
 ```bash
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+This will move the starter code to `app-example/` and create a fresh `app/` directory.
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📚 Learn More
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- [Expo documentation](https://docs.expo.dev/)
+- [React Native WebView](https://github.com/react-native-webview/react-native-webview)
+- [Expo Router Guide](https://docs.expo.dev/router/introduction/)
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 💬 Join the Community
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo on GitHub](https://github.com/expo/expo)
+- [Expo Discord](https://chat.expo.dev)
+
+---
+
+_This project is maintained internally and is intended for use inside the BFSI network only._
