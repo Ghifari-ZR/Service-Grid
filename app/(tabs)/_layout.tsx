@@ -1,17 +1,18 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Image, Platform, Text, View } from 'react-native';
-
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+// Bottom tab layout component
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const textColor = Colors[colorScheme ?? 'light'].background;
 
+  // Custom header title with logo and app name
   const HeaderTitle = () => (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Image
@@ -19,7 +20,7 @@ export default function TabLayout() {
         style={{ width: 30, height: 30, marginRight: 8 }}
         resizeMode="contain"
       />
-      <Text style={{ fontSize: 18, fontWeight: 'bold', color: textColor  }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: textColor }}>
         Service Grid
       </Text>
     </View>
@@ -34,7 +35,6 @@ export default function TabLayout() {
         headerStyle: {
           backgroundColor: Colors[colorScheme ?? 'light'].tint,
         },
-
         headerTitleAlign: 'center',
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
@@ -46,6 +46,7 @@ export default function TabLayout() {
         }),
       }}
     >
+      {/* Home tab screen */}
       <Tabs.Screen
         name="index"
         options={{
