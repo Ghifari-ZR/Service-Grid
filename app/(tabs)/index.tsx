@@ -6,19 +6,21 @@ import {
   ScrollView,
   RefreshControl,
   View,
+  BackHandler,
   Platform,
 } from 'react-native';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 export default function ExploreScreen() {
   const [hasError, setHasError] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const url = 'http://192.168.150.109:8069/odoo/timesheets';
   const webViewRef = useRef<WebView>(null);
   const appState = useRef<AppStateStatus>(AppState.currentState);
+  const canGoBack = useRef(false); 
 
-  const url = 'http://servicegrid.bfsi.local:8069/odoo/timesheets';
+  //const fallbackUrl = 'http://192.168.150.109:8069/odoo/timesheets';
 
-  // Handle errors from the WebView
   const handleError = async (syntheticEvent: any) => {
     const { nativeEvent } = syntheticEvent;
     const description = nativeEvent?.description?.toLowerCase?.() || '';
@@ -47,7 +49,6 @@ export default function ExploreScreen() {
     }
   };
 
-  // Reload WebView when app returns to foreground after error
   const handleAppStateChange = (nextAppState: AppStateStatus) => {
     if (
       hasError &&
@@ -60,18 +61,35 @@ export default function ExploreScreen() {
     appState.current = nextAppState;
   };
 
-  // Subscribe to app state changes
   useEffect(() => {
     const sub = AppState.addEventListener('change', handleAppStateChange);
     return () => sub.remove();
   }, [hasError]);
 
-  // Pull-to-refresh handler
+  // Pull to refresh
   const onRefresh = () => {
     setRefreshing(true);
     webViewRef.current?.reload();
-    setTimeout(() => setRefreshing(false), 1000); // Small delay to show refresh animation
+    setTimeout(() => setRefreshing(false), 1000);
   };
+
+  const handleBackPress = useCallback(() => {
+    if (canGoBack.current && webViewRef.current) {
+      webViewRef.current.goBack();
+      return true;
+    }
+    return false;
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        handleBackPress
+      );
+      return () => backHandler.remove();
+    }
+  }, [handleBackPress]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -87,6 +105,9 @@ export default function ExploreScreen() {
           source={{ uri: url }}
           onError={handleError}
           onHttpError={handleError}
+          onNavigationStateChange={(navState) => {
+            canGoBack.current = navState.canGoBack;
+          }}
           startInLoadingState={true}
           style={{ flex: 1 }}
         />

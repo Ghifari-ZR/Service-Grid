@@ -10,8 +10,6 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 // Bottom tab layout component
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const textColor = Colors[colorScheme ?? 'light'].background;
-
   // Custom header title with logo and app name
   const HeaderTitle = () => (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -20,7 +18,7 @@ export default function TabLayout() {
         style={{ width: 30, height: 30, marginRight: 8 }}
         resizeMode="contain"
       />
-      <Text style={{ fontSize: 18, fontWeight: 'bold', color: textColor }}>
+      <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000000' }}>
         Service Grid
       </Text>
     </View>
@@ -33,7 +31,7 @@ export default function TabLayout() {
         headerShown: true,
         headerTitle: () => <HeaderTitle />,
         headerStyle: {
-          backgroundColor: Colors[colorScheme ?? 'light'].tint,
+          backgroundColor: '#ffffff', 
         },
         headerTitleAlign: 'center',
         tabBarButton: HapticTab,

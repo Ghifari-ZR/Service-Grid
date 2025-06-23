@@ -33,7 +33,7 @@ export default function RootLayout() {
   return (
     // Provide navigation theme based on current color scheme
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack> 
         {/* Main tab-based navigation */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         {/* Fallback screen for unmatched routes */}
